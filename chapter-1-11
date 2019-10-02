@@ -1,0 +1,22 @@
+class Solution:
+    def findLargestAndSmallestNum(self, nums: List[int]) -> tuple:
+        """
+        Write an algorithm that finds both the smallest and largest numbers in a list of n
+        numbers. Your algorithm must do at most 3/2n comparisons.
+        """
+        if len(nums) == 1:
+            return (nums[0], nums[0])
+        if len(nums) == 2:
+            max_num = max(nums)
+            min_num = min(nums)
+            return (max_num, min_num)
+        else:
+            length = len(nums)
+            max_num = max(self.findLargestAndSmallestNum(nums[:length // 2])[0], self.findLargestAndSmallestNum(nums[length // 2:])[0])
+            min_num = min(self.findLargestAndSmallestNum(nums[:length // 2])[1], self.findLargestAndSmallestNum(nums[length // 2:])[1])
+            return (max_num, min_num)
+
+if __name__ == "__main__":
+    array = [3,5,2,3,7,2,4,6,2,4,6,8,9,0]
+    a = Solution()
+    print(a.findLargestAndSmallestNum(array))
