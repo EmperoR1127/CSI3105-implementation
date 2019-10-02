@@ -1,0 +1,23 @@
+class Solution:
+    def sort(self, nums: List[int], k: int) -> List[int]:
+        """
+        Let k be a fixed positive integer. Write a Θ(n) time algorithm that sorts a list
+        of n integers, where each integer is in the interval [0, kn - 1]
+        """
+        #temp stores a array, which lengh is kn
+        assert max(nums) <= len(nums) * k - 1
+        temp = [0] * len(nums) * k
+        for num in nums:
+            temp[num] += 1
+        idx = 0
+        for i in range(len(temp)):
+            while temp[i] > 0:
+                nums[idx] = i
+                temp[i] -= 1
+                idx += 1
+        return nums
+
+if __name__ == "__main__":
+    array = [3,5,2,3,7,12,29,6,2,4,6,8,9,0,29]
+    a = Solution()
+    print(a.sort(array, 2))
