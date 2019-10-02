@@ -1,0 +1,22 @@
+class Solution:
+    def binarySearch(self, nums: List[int], target: int) -> bool:
+        """
+        Show the trace of the binary search algorithm
+        """
+        left, right = 0, len(nums) - 1
+        while left <= right:
+            mid = (left + right) // 2
+            print(nums[mid])
+            if nums[mid] == target:
+                return True
+            elif nums[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return False
+
+if __name__ == "__main__":
+    array = [110, 155, 315, 401, 415, 810, 1001, 1120, 1315]
+    #array = [5]
+    a = Solution()
+    print(a.binarySearch(array, 1001))
