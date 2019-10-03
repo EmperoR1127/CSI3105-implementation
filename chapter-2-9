@@ -1,0 +1,76 @@
+class Solution:
+    def mergeSort(self, nums: List[int]) -> List[int]:
+        """
+        Write an algorithm that sorts a list of n items by dividing it into three sublists of about n/3 items, 
+        sorting the sub-lists recursively and then merging them.
+        """
+        if len(nums) <= 1:
+            return nums
+        elif len(nums) == 2:
+            if nums[0] > nums[1]:
+                temp = nums[0]
+                nums[0] = nums[1]
+                nums[1] = temp
+            return nums
+        elif len(nums) == 3:
+            a = min(nums)
+            b = max(nums)
+            c = sum(nums) - a - b
+            return [a, c, b]
+        else:
+            length = len(nums) - 1
+            nums_1 = self.mergeSort(nums[:length // 3])
+            nums_2 = self.mergeSort(nums[length // 3:length // 3 * 2])
+            nums_3 = self.mergeSort(nums[length // 3 * 2: ])
+            return self.merge(nums_1, nums_2, nums_3)
+    
+    def merge(self, nums_1: List[int], nums_2: List[int], nums_3: List[int]) -> List[int]:
+        """
+        Merge 3 sorted arrays
+        """
+        assert self.isSorted(nums_1)
+        assert self.isSorted(nums_2)
+        assert self.isSorted(nums_3)
+        i = j = k = 0
+        res = []
+        while i < len(nums_1) or j < len(nums_2) or k < len(nums_3):
+            a = b = c = float("inf")
+            if i < len(nums_1):
+                a = nums_1[i]
+            if j < len(nums_2):
+                b = nums_2[j]
+            if k < len(nums_3):
+                c = nums_3[k]
+            min_num = min(a, b, c)
+            res.append(min_num)
+            if a == min_num:
+                i += 1
+            elif b == min_num:
+                j += 1
+            else:
+                k += 1
+        return res
+    
+    def isSorted(self, nums: List[int]) -> bool:
+        """
+        Check if the given list is in accending order.
+        """
+        for i in range(len(nums) - 1):
+            if nums[i] > nums[i + 1]:
+                return False
+        return True
+
+if __name__ == "__main__":
+    a = [110, 155, 315, 401, 415, 810, 1001, 1120, 1315]
+    b = [454,458,456]
+    c = [34,888,956]
+    d = [54,23,12,76,24,56,32,46,21,232,631,212,35,67,86]
+    #array = [5]
+    m = Solution()
+    #print(m.isSorted(c))
+    #print(m.merge(a, b, c))
+    print(m.mergeSort(d))
+    
+    
+    
+    
