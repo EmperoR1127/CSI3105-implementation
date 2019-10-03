@@ -1,7 +1,7 @@
 class Solution:
     def findMthLargestNum(self, nums: List[int]) -> int:
         """
-        find the m-th largest number in an array[n], m = n -2
+        find the m-th largest number in an array[n], m = n - 2
         the running time of this algorithm should be O(n)
         """
         assert len(nums) >= 3
