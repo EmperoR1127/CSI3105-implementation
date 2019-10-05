@@ -1,0 +1,25 @@
+class Solution(object):
+    def selectionSort(self, nums: List[int]) -> List[int]:
+        """
+        Write the selection sort.
+        Description: find the minimal num of 2 to n, if the num is smaller than first element, swap.
+        Then find the smallest num of 3 to n, if the num is smaller than second element, swap.
+        Continue this process until reaches the end of the given array.
+        """
+        for i in range(len(nums)):
+            key = nums[i]
+            idx = i
+            for j in range(i + 1, len(nums)):
+                if nums[j] < key:
+                    key = nums[j]
+                    idx = j
+            if idx != i:
+                temp = nums[i]
+                nums[i] = key
+                nums[idx] = temp
+        return nums
+
+if __name__ == '__main__':
+    nums = [6,1]
+    s = Solution()
+    print(s.selectionSort(nums))
