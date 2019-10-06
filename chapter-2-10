@@ -1,0 +1,40 @@
+class Solution(object):
+    def ternarySearch(self, nums: List[int], target: int) -> bool:
+        """
+        Describe a ternary search algorithm which splits the input list into 
+        three sub-lists of equal size and then makes one recursive call.
+        """
+        assert self.isSorted(nums)
+        if len(nums) == 0:
+            return False
+        elif len(nums) == 1:
+            return nums[0] == target
+        elif len(nums) == 2:
+            if nums[0] == target:
+                return True
+            else:
+                return nums[1] == target
+        else:
+            idx_1, idx_2 = (len(nums) - 1) // 3, (len(nums) - 1) // 3 * 2
+            if target == nums[idx_1] or target == nums[idx_2]:
+                return True
+            elif target < nums[idx_1]:
+                return self.ternarySearch(nums[:idx_1], target)
+            elif nums[idx_1] < target < nums[idx_2]:
+                return self.ternarySearch(nums[idx_1 + 1:idx_2], target)
+            else:
+                return self.ternarySearch(nums[idx_2 + 1:], target)
+    
+    def isSorted(self, nums: List[int]) -> bool:
+        """
+        Check whether the given list is sorted in accsending order.
+        """
+        for i in range(len(nums) - 1):
+            if nums[i] > nums[i + 1]:
+                return False
+        return True
+
+if __name__ == '__main__':
+    nums = [1,4,7,9,10,15,17,19,20,24,26,29,33]
+    s = Solution()
+    print(s.ternarySearch(nums, 18))
