@@ -1,0 +1,54 @@
+class Solution(object):
+    def findNum(self, a: List[int], b: List[int]) -> int:
+        """
+        You are given two sorted arrays A[1..n] and B[1..(n + 1)]. Except for one number,
+        A and B are identical. Find the index of this extra element in O(log(n)) time.
+        """
+        #a has at least 1 element
+        assert len(a) >= 1
+        #b only has one more element than a
+        assert len(a) + 1 ==len(b)
+        assert self.isSorted(a)
+        assert self.isSorted(b)
+        left_a, left_b, right_a, right_b = 0, 0, len(a) - 1, len(b) - 1
+        while left_a <= right_a and left_b <= right_b:
+            mid_a = (left_a + right_a) // 2
+            mid_b = (left_b + right_b) // 2
+            # print(left_a, right_a, mid_a)
+            # print(left_b, right_b, mid_b)
+            # print("------")
+            if mid_a == mid_b:
+                if a[mid_a] != b[mid_b]:
+                    right_a = mid_a - 1
+                    right_b = mid_b - 1
+                else:
+                    left_a = mid_a + 1
+                    left_b = mid_b + 1
+            else:
+                if a[mid_a] == b[mid_b]:
+                    right_a = mid_a - 1
+                    right_b = mid_b - 1
+                else:
+                    left_a = mid_a + 1
+                    left_b = mid_b + 1
+        return left_b
+
+    def isSorted(self, nums: List[int]) -> bool:
+        """
+        Check whether the given list is sorted in accsending order.
+        """
+        for i in range(len(nums) - 1):
+            if nums[i] > nums[i + 1]:
+                return False
+        return True
+    
+if __name__ == '__main__':
+    a = [21,33]
+    b = [1,21,33]
+    s = Solution()
+    print(s.findNum(a, b))
+    
+    
+    
+    
+    
