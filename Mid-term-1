@@ -1,0 +1,32 @@
+class Solution:
+    def maximumDifference(self, nums: List[int]) -> tuple:
+        """
+        find the indices i and j, where nums[j] - nums[i] is maximum and 0 <= i < j < n.
+        nums has 2^k elements.
+        """
+        if len(nums) == 2:
+            return (0, 1)
+        else:
+            length = len(nums) // 2
+            min_value, max_value = min(nums[:length]), max(nums[length:])
+            i, j = self.maximumDifference(nums[:length])
+            k, l = self.maximumDifference(nums[length:])
+            if nums[j] - nums[i] >= nums[l] - nums[k]:
+                if nums[j] - nums[i] >= max_value - min_value:
+                    return (i, j)
+                else:
+                    return (nums.index(min_value), nums.index(max_value))
+            else:
+                if nums[l] - nums[k] >= max_value - min_value:
+                    return (k, l)
+                else:
+                    return (nums.index(min_value), nums.index(max_value))
+        
+
+if __name__ == "__main__":
+    array = [100,0,3,9,2,4,6,12]
+    a = Solution()
+    print(a.maximumDifference(array))
+    
+    
+    
