@@ -1,0 +1,34 @@
+class Solution:
+    def bestSum(self, nums: List[int]) -> (int, int):
+        """
+        Let A[1..n] be an array containing n distinct real numbers (some of which may be
+        negative). Design a O(n) time algorithm that computes two indices i and j (where
+        i ≤ j) for which the sum A[i] + A[i + 1] + ... + A[j − 1] + A[j] is maximum.
+        Let bs[j - 1] be the maximum sum of A[i], A[i + 1],...A[j - 1], then
+        bs[j] will be the max of b[j - 1] + A[j] and A[j], we can solve this problem using 
+        dynamic programming.
+        """
+        if len(nums) <= 1:
+            return 0, 0
+        bs = []
+        for i in range(len(nums)):
+            bs.append(nums[i])
+        i, j = 0, 1
+        # bestSum = nums[0]
+        while j < len(nums):
+            if bs[j - 1] + nums[j] > nums[j]:
+                bs[j] = bs[j - 1] + nums[j]
+            else:
+                bs[j] = nums[j]
+                i = j
+            # bestSum = bs[j]
+            # print(bestSum, i, j)
+            j = j + 1
+        return (i, j - 1)
+
+
+if __name__ == "__main__":
+    a = [38, 21, 17,-91, 43, -7, 14, 44, -4, 13]
+    b = [4]
+    m = Solution()
+    print(m.bestSum(a))
